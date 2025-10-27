@@ -78,17 +78,7 @@ The application offers two scanning modes:
 - An internet connection (for NVD API access)
 - No installation or compilation required!
 
-### Step 1: Download or Clone the Repository
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/vigilance-web-security-analyzer.git
-
-# Navigate to the project directory
-cd vigilance-web-security-analyzer
-```
-
-### Step 2: Verify Files
+### Step 1: Verify Files
 
 Ensure you have the following files in your project directory:
 - `index.html` - Main HTML structure
@@ -96,7 +86,7 @@ Ensure you have the following files in your project directory:
 - `script.js` - Application logic
 - `README.md` - This file
 
-### Step 3: That's It!
+### Step 2: That's It!
 
 No additional installation steps required. The application is ready to run.
 
@@ -107,53 +97,6 @@ No additional installation steps required. The application is ready to run.
 1. Navigate to the project folder
 2. Locate `index.html`
 3. Double-click the file to open it in your default browser
-
-### Method 2: Using a Local Web Server (Recommended)
-
-#### Option A: Using Python (if installed)
-
-```bash
-# Python 3
-python -m http.server 8000
-
-# Python 2
-python -m SimpleHTTPServer 8000
-```
-
-Then open: `http://localhost:8000`
-
-#### Option B: Using Node.js (if installed)
-
-```bash
-# Install a simple HTTP server globally
-npm install -g http-server
-
-# Run the server
-http-server
-
-# Or with a specific port
-http-server -p 8000
-```
-
-Then open: `http://localhost:8000`
-
-#### Option C: Using PHP (if installed)
-
-```bash
-php -S localhost:8000
-```
-
-Then open: `http://localhost:8000`
-
-#### Option D: Using VS Code Live Server Extension
-
-1. Install the "Live Server" extension in VS Code
-2. Right-click on `index.html`
-3. Select "Open with Live Server"
-
-### Method 3: Using Modern IDEs
-
-Most modern IDEs (WebStorm, Atom, Sublime Text with extensions) provide built-in preview servers.
 
 ## 💻 Usage
 
@@ -329,3 +272,4 @@ Created as a demonstration of modern web development techniques with real API in
 ---
 
 **Remember:** Always practice responsible security testing and respect user privacy and system integrity. 🛡️
+
