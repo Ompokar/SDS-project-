@@ -205,23 +205,6 @@ vigilance-web-security-analyzer/
 - Theme and API status management
 - Export and print functionality
 
-## 🔌 API Integration
-
-### NVD API v2.0
-
-The application integrates with the NVD (National Vulnerability Database) API to fetch real CVE data.
-
-**API Endpoint:**
-```
-https://services.nvd.nist.gov/rest/json/cves/2.0
-```
-
-**Usage in Application:**
-```javascript
-const searchTerm = encodeURIComponent(`${component} ${version}`);
-const apiUrl = `https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=${searchTerm}&resultsPerPage=20`;
-```
-
 **Features:**
 - Keyword-based search for component and version
 - Fetches up to 20 CVEs per search
@@ -272,4 +255,5 @@ Created as a demonstration of modern web development techniques with real API in
 ---
 
 **Remember:** Always practice responsible security testing and respect user privacy and system integrity. 🛡️
+
 
