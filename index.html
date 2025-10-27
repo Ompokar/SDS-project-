@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigilance Web Security Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div>
+                    <h1>🛡️ Vigilance Web Security Analyzer</h1>
+                    <p class="subtitle">Professional Web Security Vulnerability Scanner</p>
+                </div>
+                <div class="header-controls">
+                    <div class="api-status" id="api-status">
+                        <span class="status-dot"></span>
+                        <span class="status-text">NVD API</span>
+                    </div>
+                    <button id="theme-toggle" class="theme-toggle" title="Toggle Dark/Light Mode">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="scan-section">
+                <!-- Mode Toggle -->
+                <div class="mode-toggle">
+                    <button id="mode-toggle" class="toggle-btn active" data-mode="component">
+                        <span class="toggle-icon">📦</span>
+                        <span>Component Scan</span>
+                    </button>
+                    <button id="mode-toggle-url" class="toggle-btn" data-mode="url">
+                        <span class="toggle-icon">🌐</span>
+                        <span>URL Scan</span>
+                    </button>
+                </div>
+
+                <!-- Component/Version Input (Default Mode) -->
+                <div id="component-mode" class="scan-mode active">
+                    <div class="input-group">
+                        <label for="component-input">Enter Software Component:</label>
+                        <input type="text" id="component-input" placeholder="e.g., Apache Tomcat" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label for="version-input">Enter Version Number:</label>
+                        <input type="text" id="version-input" placeholder="e.g., 8.5.88" autocomplete="off">
+                    </div>
+                    <div class="input-container">
+                        <button id="scan-btn" class="btn-primary">Start Security Scan</button>
+                        <p class="scan-info-text">Searching NVD for CVEs related to your component...</p>
+                    </div>
+                </div>
+
+                <!-- URL Input (Alternative Mode) -->
+                <div id="url-mode" class="scan-mode">
+                    <div class="input-group">
+                        <label for="url-input">Enter URL to Scan:</label>
+                        <input type="text" id="url-input" placeholder="https://example.com" autocomplete="off">
+                    </div>
+                    <div class="input-container">
+                        <button id="scan-btn-url" class="btn-primary">Start Security Scan</button>
+                        <p class="scan-info-text">Analyzing target URL for security vulnerabilities...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="progress-section" class="progress-section hidden">
+                <div class="scanning-animation">
+                    <div class="spinner"></div>
+                    <p id="progress-status">Fetching vulnerability data from NVD API...</p>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <p class="progress-text" id="progress-text">Initializing scan...</p>
+            </section>
+
+            <section id="report-section" class="report-section hidden">
+                <div class="report-header">
+                    <h2>Security Vulnerability Report</h2>
+                    <div class="scan-info">
+                        <span id="scan-component"></span>
+                        <span id="scan-timestamp"></span>
+                    </div>
+                </div>
+
+                <div class="dashboard-summary">
+                    <div class="summary-card">
+                        <h3>Scan Status</h3>
+                        <div class="status-indicator" id="status-indicator">
+                            <span class="status-text">Processing...</span>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Total CVEs Found</h3>
+                        <div class="count-display" id="total-findings">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Overall Risk Score</h3>
+                        <div class="risk-score" id="risk-score">0.0</div>
+                        <div class="risk-level" id="risk-level">Critical</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Severity Breakdown</h3>
+                        <div class="severity-counts" id="severity-counts"></div>
+                    </div>
+                </div>
+
+                <div class="severity-chart-container">
+                    <div class="chart-header">
+                        <h3>Vulnerability Distribution</h3>
+                        <button id="fullscreen-chart" class="btn-icon" title="Fullscreen Chart">
+                            <span>⛶</span>
+                        </button>
+                    </div>
+                    <div class="severity-chart" id="severity-chart"></div>
+                </div>
+
+                <div class="security-headers-section">
+                    <h3>Security Headers Analysis</h3>
+                    <div class="headers-container">
+                        <table class="headers-table">
+                            <thead>
+                                <tr>
+                                    <th>Header Name</th>
+                                    <th>Status</th>
+                                    <th>Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="headers-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="findings-section">
+                    <div class="findings-header">
+                        <h3>Detailed CVE Findings</h3>
+                        <div class="findings-controls">
+                            <div class="filter-group">
+                                <label>Filter by Severity:</label>
+                                <select id="severity-filter" class="filter-select">
+                                    <option value="all">All Severities</option>
+                                    <option value="critical">Critical</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label>Sort by:</label>
+                                <select id="sort-filter" class="filter-select">
+                                    <option value="cvss">CVSS Score (Highest First)</option>
+                                    <option value="severity">Severity Level</option>
+                                </select>
+                            </div>
+                            <button id="export-btn" class="btn-secondary">📥 Export Report</button>
+                            <button id="print-btn" class="btn-secondary">🖨️ Print Report</button>
+                        </div>
+                    </div>
+                    <div class="findings-container" id="findings-container"></div>
+                </div>
+
+                <div class="historical-scans-section">
+                    <h3>Historical Scans</h3>
+                    <div class="scans-list" id="scans-list"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Vigilance Security Solutions | Educational Purpose Only</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
